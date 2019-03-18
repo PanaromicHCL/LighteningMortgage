@@ -1,5 +1,4 @@
 package com.mortgage.controller;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -18,10 +17,21 @@ import com.mortgage.service.UserService;
 
 @RestController
 @RequestMapping("/api")
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(path = "/api")
 @CrossOrigin
 public class UserController {
 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	
 	@Autowired
 	UserService userService;
