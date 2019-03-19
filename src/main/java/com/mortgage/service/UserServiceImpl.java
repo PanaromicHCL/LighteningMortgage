@@ -22,4 +22,15 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByUserName(userName);
 	}
 
+	@Override
+	public User findByUserID(long id) {
+		return userRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public User findByUserNameAndPassword(String userName, String password) {
+		
+		return userRepository.findByUserNameAndPassword(userName, password);
+	}
+
 }

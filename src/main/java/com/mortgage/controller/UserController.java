@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,6 @@ public class UserController {
 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	
 	@Autowired
 	UserService userService;
 	
@@ -33,4 +34,19 @@ public class UserController {
 		return new ResponseEntity<User>(response, HttpStatus.OK);
 	}
 	
+	@GetMapping("/userDetails/{id}")
+	public ResponseEntity<User> getUser(@PathVariable("id") int id){
+		User response = userService.findByUserID(id);
+		return new ResponseEntity<User>(response, HttpStatus.OK);
+	}
+	
+	@PostMapping("/loginUser")
+	public ResponseEntity<User> validateLoginUser(@Valid @RequestBody User user){
+		User response = userService.findByUserNameAndPassword(user.getUserName(), user.getPassword());
+		HttpStatus status = HttpStatus.OK;
+		if(response == null) {
+			status = HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<User>(response, status);		
+	}
 }
